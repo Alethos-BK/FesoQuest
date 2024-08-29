@@ -1,47 +1,58 @@
 package org.back.domain;
 
 public abstract class Usuario {
+
+    private int id;
     private String nome;
     private String matricula;
     private String email;
     private String senha;
 
-    public Usuario(String nome, String matricula, String email, String senha) {
+    public Usuario(int id, String nome, String matricula, String email, String senha) {
+        this.id = id;
         this.nome = nome;
         this.matricula = matricula;
         this.email = email;
         this.senha = senha;
     }
 
-    public String obterNome(){
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNome() {
         return nome;
     }
 
-    public String obterMatricula(){
-        return matricula;
-    }
-
-    public String obterEmail(){
-        return email;
-    }
-
-    public String obterSenha(){
-        return senha;
-    }
-
-    public void atualizarNome(String  nome){
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public void atualizarMatricula(String  matricula){
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
 
-    public void atualizarEmail(String  email){
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public void atualizarSenha(String  senha){
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
         this.senha = senha;
     }
 }
