@@ -1,18 +1,23 @@
-package org.back.domain;
+package org.back.domain.missoes;
 
+import jakarta.persistence.*;
+
+@Entity(name = "alternativa")
 public class Alternativa {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String titulo;
-    private boolean isCorreta;
+
+    @ManyToOne
+    @JoinColumn(name = "questao_id")
     private Questao questao;
 
     public Alternativa() {}
 
-    public Alternativa(int id, String titulo, boolean isCorreta, Questao questao) {
+    public Alternativa(int id, String titulo, Questao questao) {
         this.id = id;
         this.titulo = titulo;
-        this.isCorreta = isCorreta;
         this.questao = questao;
     }
 
@@ -32,14 +37,6 @@ public class Alternativa {
         this.titulo = titulo;
     }
 
-    public boolean isCorreta() {
-        return isCorreta;
-    }
-
-    public void setCorreta(boolean correta) {
-        isCorreta = correta;
-    }
-
     public Questao getQuestao() {
         return questao;
     }
@@ -47,4 +44,5 @@ public class Alternativa {
     public void setQuestao(Questao questao) {
         this.questao = questao;
     }
+
 }
