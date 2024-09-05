@@ -31,6 +31,8 @@ public class Mesa {
         this.missoes.addAll(missoes);
     }
 
+    public Mesa() {}
+
     public List<Missao> getMissoes() { return missoes; }
 
     public void setMissoes(List<Missao> missoes) { this.missoes.addAll(missoes); }
