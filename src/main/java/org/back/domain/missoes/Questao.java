@@ -18,7 +18,9 @@ public class Questao {
     private List<Alternativa> alternativas;
 
     @ManyToOne
-    @JoinColumn(name = "missao_id")
+    @JoinColumn(
+        name = "missao_id",
+        foreignKey = @ForeignKey(name = "fk_questao_missao"))
     private Missao missao;
 
     @OneToOne(mappedBy = "questao")

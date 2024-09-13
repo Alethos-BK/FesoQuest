@@ -10,7 +10,10 @@ public class Alternativa {
     private String titulo;
 
     @ManyToOne
-    @JoinColumn(name = "questao_id")
+    @JoinColumn(
+        name = "questao_id",
+        foreignKey = @ForeignKey(name = "fk_alternativa_questao")
+    )
     private Questao questao;
 
     public Alternativa() {}

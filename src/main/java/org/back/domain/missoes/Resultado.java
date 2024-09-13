@@ -9,13 +9,11 @@ public class Resultado {
     private int id;
 
     @OneToOne
-    @JoinColumn(name = "questao_id")
+    @JoinColumn(
+        name = "questao_id",
+        foreignKey = @ForeignKey(name = "fk_resultado_questao")
+    )
     private Questao questao;
-
-    /*@ManyToOne
-    @JoinColumn(name = "alternativa_id")
-    private Alternativa alternativaCorreta;*/
-
 
     private String mensagem;
 

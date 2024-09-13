@@ -14,9 +14,15 @@ public class Missao {
 
     @ManyToMany
     @JoinTable(
-            name = "missao_mesa",
-            joinColumns = @JoinColumn(name = "missao_id"),
-            inverseJoinColumns = @JoinColumn(name = "mesa_id")
+        name = "missao_mesa",
+        joinColumns = @JoinColumn(
+            name = "missao_id",
+            foreignKey = @ForeignKey(name = "fk_missao_mesa")
+        ),
+        inverseJoinColumns = @JoinColumn(
+            name = "mesa_id",
+            foreignKey = @ForeignKey(name = "fk_missao_mesa_mesa")
+        )
     )
     private List<Mesa> mesas;
 

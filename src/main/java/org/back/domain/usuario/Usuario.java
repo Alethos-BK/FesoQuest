@@ -1,15 +1,10 @@
 package org.back.domain.usuario;
 
 import jakarta.persistence.*;
-import org.back.domain.mesa.Mesa;
+import org.back.domain.enuns.ETipoUsuario;
 
-import java.util.ArrayList;
-import java.util.List;
-
-//TODO: por enquanto usar heranca nao faz sentido para nós talvez a retiraremos e deixaremos apenas usuario
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Usuario {
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
@@ -17,17 +12,19 @@ public abstract class Usuario {
     private String matricula;
     private String email;
     private String senha;
-    private boolean eMestre;
+
+    @Enumerated(EnumType.ORDINAL)
+    private ETipoUsuario tipoUsuario;
 
     public Usuario() {}
 
-    protected Usuario(int id, String nome, String matricula, String email, String senha, boolean eMestre) {
+    protected Usuario(int id, String nome, String matricula, String email, String senha, ETipoUsuario tipoUsuario) {
         this.id = id;
         this.nome = nome;
         this.matricula = matricula;
         this.email = email;
         this.senha = senha;
-        this.eMestre = eMestre;
+        this.tipoUsuario = tipoUsuario;
     }
 
     public int getId() {
@@ -70,7 +67,7 @@ public abstract class Usuario {
         this.senha = senha;
     }
 
-    public boolean getEMestre() { return eMestre; }
+    public ETipoUsuario getTipoUsuario() { return tipoUsuario; }
 
-    public void setEMestre(boolean eMestre) {this.eMestre = eMestre; }
+    public void setTipoUsuario(ETipoUsuario tipoUsuario) { this.tipoUsuario = tipoUsuario; }
 }
