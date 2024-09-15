@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity(name = "missao")
 public class Missao {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;

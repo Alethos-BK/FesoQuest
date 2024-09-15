@@ -1,5 +1,7 @@
 package org.back.domain.controller;
 
+import org.back.domain.enums.ETipoUsuario;
+import org.back.domain.exception.CustomException;
 import org.back.domain.service.UsuarioService;
 import org.back.domain.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,37 +25,24 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> getById(@PathVariable("id") int id) {
-        Optional<Usuario> usuario = service.getById(id);
-        return usuario.map(value -> ResponseEntity.ok().body(value))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<Usuario> getById(@PathVariable("id") int id) throws CustomException {
+        return ResponseEntity.ok(service.getById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
-        Usuario savedQuestao = service.create(usuario);
-        return new ResponseEntity<>(savedQuestao, HttpStatus.CREATED);
+    @PostMapping("/registrar")
+    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) throws CustomException {
+        return new ResponseEntity<>(service.create(usuario), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable("id") int id, @RequestBody Usuario updatedUsuario) {
-        Usuario usuario = service.update(id, updatedUsuario);
-
-        if (usuario == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return new ResponseEntity<>(usuario, HttpStatus.OK);
+    public ResponseEntity<Usuario> update(@PathVariable("id") int id,
+                                          @RequestBody Usuario updatedUsuario) throws CustomException {
+        return ResponseEntity.ok(service.update(id, updatedUsuario));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") int id) {
-        boolean wasDeleted = service.delete(id);
-
-        if (!wasDeleted) {
-            return ResponseEntity.notFound().build();
-        }
-
+    public ResponseEntity<Void> delete(@PathVariable("id") int id) throws CustomException {
+        service.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

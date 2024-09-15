@@ -1,7 +1,9 @@
 package org.back.domain.missoes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+@JsonIgnoreProperties("alternativas")
 @Entity(name = "alternativa")
 public class Alternativa {
     @Id
@@ -9,11 +11,13 @@ public class Alternativa {
     private int id;
     private String titulo;
 
+
     @ManyToOne
     @JoinColumn(
         name = "questao_id",
         foreignKey = @ForeignKey(name = "fk_alternativa_questao")
     )
+    @JsonIgnoreProperties("alternativas")
     private Questao questao;
 
     public Alternativa() {}

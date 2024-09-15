@@ -1,10 +1,12 @@
 package org.back.domain.missoes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.back.domain.mesa.Mesa;
 
 import java.time.LocalDate;
 import java.util.List;
+
 
 @Entity(name = "questao")
 public class Questao {
@@ -15,6 +17,7 @@ public class Questao {
     private String descricao;
 
     @OneToMany(mappedBy = "questao")
+    @JsonIgnoreProperties(value = {"questoes", "questao"})
     private List<Alternativa> alternativas;
 
     @ManyToOne

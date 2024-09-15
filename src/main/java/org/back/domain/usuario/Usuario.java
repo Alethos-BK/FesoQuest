@@ -1,10 +1,14 @@
 package org.back.domain.usuario;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import jakarta.persistence.*;
-import org.back.domain.enuns.ETipoUsuario;
+import org.back.domain.enums.ETipoUsuario;
+import org.back.domain.exception.CustomException;
 
 @Entity
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;

@@ -1,5 +1,6 @@
 package org.back.domain.controller;
 
+import org.back.domain.exception.CustomException;
 import org.back.domain.missoes.Missao;
 import org.back.domain.service.MissaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,37 +24,24 @@ public class MissaoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Missao> getMissaoById(@PathVariable("id") int id) {
-        Optional<Missao> missao = service.getMissaoById(id);
-        return missao.map(value -> ResponseEntity.ok().body(value))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<Missao> getMissaoById(@PathVariable("id") int id) throws CustomException {
+        return ResponseEntity.ok(service.getMissaoById(id));
     }
 
     @PostMapping
     public ResponseEntity<Missao> createMissao(@RequestBody Missao missao) {
-        Missao savedMissao = service.createMissao(missao);
-        return new ResponseEntity<>(savedMissao, HttpStatus.CREATED);
+        return new ResponseEntity<>(service.createMissao(missao), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Missao> updateMissao(@PathVariable("id") int id, @RequestBody Missao updatedMissao) {
-        Missao missao = service.updateMissao(id, updatedMissao);
-
-        if (missao == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return new ResponseEntity<>(missao, HttpStatus.OK);
+    public ResponseEntity<Missao> updateMissao(@PathVariable("id") int id,
+                                               @RequestBody Missao updatedMissao) throws CustomException {
+        return ResponseEntity.ok(service.updateMissao(id, updatedMissao));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMissao(@PathVariable("id") int id) {
-        boolean wasDeleted = service.deleteMissao(id);
-
-        if (!wasDeleted) {
-            return ResponseEntity.notFound().build();
-        }
-
+    public ResponseEntity<Void> deleteMissao(@PathVariable("id") int id) throws CustomException {
+        service.deleteMissao(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

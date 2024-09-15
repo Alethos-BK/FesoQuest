@@ -1,5 +1,6 @@
 package org.back.domain.controller;
 
+import org.back.domain.exception.CustomException;
 import org.back.domain.missoes.Alternativa;
 import org.back.domain.service.AlternativaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,37 +24,24 @@ public class AlternativaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Alternativa> getAlternativaById(@PathVariable("id") int id) {
-        Optional<Alternativa> alternativa = service.getAlternativaById(id);
-        return alternativa.map(value -> ResponseEntity.ok().body(value))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<Alternativa> getAlternativaById(@PathVariable("id") int id) throws CustomException {
+        return ResponseEntity.ok(service.getAlternativaById(id));
     }
 
     @PostMapping
     public ResponseEntity<Alternativa> createAlternativa(@RequestBody Alternativa alternativa) {
-        Alternativa savedAlternativa = service.createAlternativa(alternativa);
-        return new ResponseEntity<>(savedAlternativa, HttpStatus.CREATED);
+        return new ResponseEntity<>(service.createAlternativa(alternativa), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Alternativa> updateAlternativa(@PathVariable("id") int id, @RequestBody Alternativa updatedAlternativa) {
-        Alternativa alternativa = service.updateAlternativa(id, updatedAlternativa);
-
-        if (alternativa == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return new ResponseEntity<>(alternativa, HttpStatus.OK);
+    public ResponseEntity<Alternativa> updateAlternativa(@PathVariable("id") int id,
+                                                         @RequestBody Alternativa updatedAlternativa) throws CustomException {
+        return ResponseEntity.ok(service.updateAlternativa(id, updatedAlternativa));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAlternativa(@PathVariable("id") int id) {
-        boolean wasDeleted = service.deleteAlternativa(id);
-
-        if (!wasDeleted) {
-            return ResponseEntity.notFound().build();
-        }
-
+    public ResponseEntity<Void> deleteAlternativa(@PathVariable("id") int id) throws CustomException {
+        service.deleteAlternativa(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

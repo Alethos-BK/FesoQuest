@@ -1,5 +1,6 @@
 package org.back.domain.controller;
 
+import org.back.domain.exception.CustomException;
 import org.back.domain.missoes.Questao;
 import org.back.domain.service.QuestaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,37 +24,24 @@ public class QuestaoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Questao> getQuestaoById(@PathVariable("id") int id) {
-        Optional<Questao> questao = service.getQuestaoById(id);
-        return questao.map(value -> ResponseEntity.ok().body(value))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<Questao> getQuestaoById(@PathVariable("id") int id) throws CustomException {
+        return ResponseEntity.ok(service.getQuestaoById(id));
     }
 
     @PostMapping
     public ResponseEntity<Questao> createQuestao(@RequestBody Questao questao) {
-        Questao savedQuestao = service.createQuestao(questao);
-        return new ResponseEntity<>(savedQuestao, HttpStatus.CREATED);
+        return new ResponseEntity<>(service.createQuestao(questao), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Questao> updateQuestao(@PathVariable("id") int id, @RequestBody Questao updatedQuestao) {
-        Questao questao = service.updateQuestao(id, updatedQuestao);
-
-        if (questao == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return new ResponseEntity<>(questao, HttpStatus.OK);
+    public ResponseEntity<Questao> updateQuestao(@PathVariable("id") int id,
+                                                 @RequestBody Questao updatedQuestao) throws CustomException {
+        return ResponseEntity.ok(service.updateQuestao(id, updatedQuestao));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteQuestao(@PathVariable("id") int id) {
-        boolean wasDeleted = service.deleteQuestao(id);
-
-        if (!wasDeleted) {
-            return ResponseEntity.notFound().build();
-        }
-
+    public ResponseEntity<Void> deleteQuestao(@PathVariable("id") int id) throws CustomException {
+        service.deleteQuestao(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
