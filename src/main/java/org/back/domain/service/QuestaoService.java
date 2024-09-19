@@ -15,20 +15,20 @@ public class QuestaoService {
     @Autowired
     private QuestaoRepository questaoRepository;
 
-    public List<Questao> getAllQuestoes() {
+    public List<Questao> getAll() {
         return questaoRepository.findAll();
     }
 
-    public Questao getQuestaoById(int id) throws CustomException {
+    public Questao getById(int id) throws CustomException {
         return questaoRepository.findById(id)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Questão não encontrada"));
     }
 
-    public Questao createQuestao(Questao questao) {
+    public Questao create(Questao questao) {
         return questaoRepository.save(questao);
     }
 
-    public Questao updateQuestao(int id, Questao updatedQuestao) throws CustomException {
+    public Questao update(int id, Questao updatedQuestao) throws CustomException {
         questaoRepository.findById(id)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Questão não encontrada"));
 
@@ -36,7 +36,7 @@ public class QuestaoService {
         return questaoRepository.save(updatedQuestao);
     }
 
-    public void deleteQuestao(int id) throws CustomException {
+    public void delete(int id) throws CustomException {
         questaoRepository.findById(id)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Questão não encontrada"));
 

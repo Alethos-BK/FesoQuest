@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MesaService {
@@ -16,20 +15,20 @@ public class MesaService {
     @Autowired
     private MesaRepository mesaRepository;
 
-    public List<Mesa> getAllMesas() {
+    public List<Mesa> getAll() {
         return mesaRepository.findAll();
     }
 
-    public Mesa getMesaById(int id) throws CustomException {
+    public Mesa getById(int id) throws CustomException {
         return mesaRepository.findById(id)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Mesa não encontrada!"));
     }
 
-    public Mesa createMesa(Mesa mesa) {
+    public Mesa create(Mesa mesa) {
         return mesaRepository.save(mesa);
     }
 
-    public Mesa updateMesa(int id, Mesa updatedMesa) throws CustomException {
+    public Mesa update(int id, Mesa updatedMesa) throws CustomException {
         mesaRepository.findById(id)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Mesa não encontrada!"));
 
@@ -37,7 +36,7 @@ public class MesaService {
         return mesaRepository.save(updatedMesa);
     }
 
-    public void deleteMesa(int id) throws CustomException {
+    public void delete(int id) throws CustomException {
         mesaRepository.findById(id)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Mesa não encontrada!"));
 

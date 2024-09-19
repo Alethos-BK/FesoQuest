@@ -9,39 +9,38 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/missoes")
 public class MissaoController {
 
     @Autowired
-    private MissaoService service;
+    private MissaoService missaoService;
 
     @GetMapping
     public List<Missao> getAllMissoes() {
-        return service.getAllMissoes();
+        return missaoService.getAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Missao> getMissaoById(@PathVariable("id") int id) throws CustomException {
-        return ResponseEntity.ok(service.getMissaoById(id));
+        return ResponseEntity.ok(missaoService.getById(id));
     }
 
     @PostMapping
     public ResponseEntity<Missao> createMissao(@RequestBody Missao missao) {
-        return new ResponseEntity<>(service.createMissao(missao), HttpStatus.CREATED);
+        return new ResponseEntity<>(missaoService.create(missao), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Missao> updateMissao(@PathVariable("id") int id,
                                                @RequestBody Missao updatedMissao) throws CustomException {
-        return ResponseEntity.ok(service.updateMissao(id, updatedMissao));
+        return ResponseEntity.ok(missaoService.update(id, updatedMissao));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMissao(@PathVariable("id") int id) throws CustomException {
-        service.deleteMissao(id);
+        missaoService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

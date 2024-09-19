@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MissaoService {
@@ -16,20 +15,20 @@ public class MissaoService {
     @Autowired
     private MissaoRepository missaoRepository;
 
-    public List<Missao> getAllMissoes() {
+    public List<Missao> getAll() {
         return missaoRepository.findAll();
     }
 
-    public Missao getMissaoById(int id) throws CustomException {
+    public Missao getById(int id) throws CustomException {
         return missaoRepository.findById(id)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Missão não encontrada!"));
     }
 
-    public Missao createMissao(Missao missao) {
+    public Missao create(Missao missao) {
         return missaoRepository.save(missao);
     }
 
-    public Missao updateMissao(int id, Missao updatedMissao) throws CustomException {
+    public Missao update(int id, Missao updatedMissao) throws CustomException {
         missaoRepository.findById(id)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Missão não encontrada!"));
 
@@ -37,7 +36,7 @@ public class MissaoService {
         return missaoRepository.save(updatedMissao);
     }
 
-    public void deleteMissao(int id) throws CustomException {
+    public void delete(int id) throws CustomException {
         missaoRepository.findById(id)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Missão não encontrada!"));
 

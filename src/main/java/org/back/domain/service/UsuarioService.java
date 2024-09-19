@@ -1,6 +1,5 @@
 package org.back.domain.service;
 
-import org.back.domain.enums.ETipoUsuario;
 import org.back.domain.exception.CustomException;
 import org.back.domain.repository.UsuarioRepository;
 import org.back.domain.usuario.Usuario;
@@ -9,10 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UsuarioService {
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 

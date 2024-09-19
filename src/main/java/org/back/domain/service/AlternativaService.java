@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AlternativaService {
@@ -16,20 +15,20 @@ public class AlternativaService {
     @Autowired
     private AlternativaRepository alternativaRepository;
 
-    public List<Alternativa> getAllAlternativas() {
+    public List<Alternativa> getAll() {
         return alternativaRepository.findAll();
     }
 
-    public Alternativa getAlternativaById(int id) throws CustomException {
+    public Alternativa getById(int id) throws CustomException {
         return alternativaRepository.findById(id)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Alternativa não encontrada"));
     }
 
-    public Alternativa createAlternativa(Alternativa alternativa) {
+    public Alternativa create(Alternativa alternativa) {
         return alternativaRepository.save(alternativa);
     }
 
-    public Alternativa updateAlternativa(int id, Alternativa updatedAlternativa) throws CustomException {
+    public Alternativa update(int id, Alternativa updatedAlternativa) throws CustomException {
         alternativaRepository.findById(id)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Alternativa não encontrada"));
 
@@ -37,7 +36,7 @@ public class AlternativaService {
         return alternativaRepository.save(updatedAlternativa);
     }
 
-    public void deleteAlternativa(int id) throws CustomException {
+    public void delete(int id) throws CustomException {
         alternativaRepository.findById(id)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Alternativa não encontrada"));
 

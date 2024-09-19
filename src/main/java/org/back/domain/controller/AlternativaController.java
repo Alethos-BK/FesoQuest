@@ -9,39 +9,38 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/alternativas")
 public class AlternativaController {
 
     @Autowired
-    private AlternativaService service;
+    private AlternativaService alternativaService;
 
     @GetMapping
     public List<Alternativa> getAllAlternativas() {
-        return service.getAllAlternativas();
+        return alternativaService.getAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Alternativa> getAlternativaById(@PathVariable("id") int id) throws CustomException {
-        return ResponseEntity.ok(service.getAlternativaById(id));
+        return ResponseEntity.ok(alternativaService.getById(id));
     }
 
     @PostMapping
     public ResponseEntity<Alternativa> createAlternativa(@RequestBody Alternativa alternativa) {
-        return new ResponseEntity<>(service.createAlternativa(alternativa), HttpStatus.CREATED);
+        return new ResponseEntity<>(alternativaService.create(alternativa), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Alternativa> updateAlternativa(@PathVariable("id") int id,
                                                          @RequestBody Alternativa updatedAlternativa) throws CustomException {
-        return ResponseEntity.ok(service.updateAlternativa(id, updatedAlternativa));
+        return ResponseEntity.ok(alternativaService.update(id, updatedAlternativa));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAlternativa(@PathVariable("id") int id) throws CustomException {
-        service.deleteAlternativa(id);
+        alternativaService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
