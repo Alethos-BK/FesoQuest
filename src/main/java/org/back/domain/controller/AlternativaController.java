@@ -18,28 +18,28 @@ public class AlternativaController {
     private AlternativaService alternativaService;
 
     @GetMapping
-    public List<Alternativa> getAllAlternativas() {
+    public List<Alternativa> getAll() {
         return alternativaService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Alternativa> getAlternativaById(@PathVariable("id") int id) throws CustomException {
+    public ResponseEntity<Alternativa> getById(@PathVariable("id") int id) throws CustomException {
         return ResponseEntity.ok(alternativaService.getById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Alternativa> createAlternativa(@RequestBody Alternativa alternativa) {
+    public ResponseEntity<Alternativa> create(@RequestBody Alternativa alternativa) {
         return new ResponseEntity<>(alternativaService.create(alternativa), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Alternativa> updateAlternativa(@PathVariable("id") int id,
+    public ResponseEntity<Alternativa> update(@PathVariable("id") int id,
                                                          @RequestBody Alternativa updatedAlternativa) throws CustomException {
         return ResponseEntity.ok(alternativaService.update(id, updatedAlternativa));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAlternativa(@PathVariable("id") int id) throws CustomException {
+    public ResponseEntity<Void> delete(@PathVariable("id") int id) throws CustomException {
         alternativaService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

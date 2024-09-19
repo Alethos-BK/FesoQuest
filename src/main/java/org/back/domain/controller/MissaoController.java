@@ -18,28 +18,28 @@ public class MissaoController {
     private MissaoService missaoService;
 
     @GetMapping
-    public List<Missao> getAllMissoes() {
+    public List<Missao> getAll() {
         return missaoService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Missao> getMissaoById(@PathVariable("id") int id) throws CustomException {
+    public ResponseEntity<Missao> getById(@PathVariable("id") int id) throws CustomException {
         return ResponseEntity.ok(missaoService.getById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Missao> createMissao(@RequestBody Missao missao) {
+    public ResponseEntity<Missao> create(@RequestBody Missao missao) {
         return new ResponseEntity<>(missaoService.create(missao), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Missao> updateMissao(@PathVariable("id") int id,
+    public ResponseEntity<Missao> update(@PathVariable("id") int id,
                                                @RequestBody Missao updatedMissao) throws CustomException {
         return ResponseEntity.ok(missaoService.update(id, updatedMissao));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMissao(@PathVariable("id") int id) throws CustomException {
+    public ResponseEntity<Void> delete(@PathVariable("id") int id) throws CustomException {
         missaoService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

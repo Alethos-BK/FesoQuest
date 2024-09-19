@@ -18,28 +18,28 @@ public class MesaController {
     private MesaService mesaService;
 
     @GetMapping
-    public List<Mesa> getAllMesas() {
+    public List<Mesa> getAll() {
         return mesaService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Mesa> getMesaById(@PathVariable("id") int id) throws CustomException {
+    public ResponseEntity<Mesa> getById(@PathVariable("id") int id) throws CustomException {
         return ResponseEntity.ok(mesaService.getById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Mesa> createMesa(@RequestBody Mesa mesa) {
-        return new ResponseEntity<>( mesaService.create(mesa), HttpStatus.CREATED);
+    public ResponseEntity<Mesa> create(@RequestBody Mesa mesa) {
+        return new ResponseEntity<>(mesaService.create(mesa), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Mesa> updateMesa(@PathVariable("id") int id,
+    public ResponseEntity<Mesa> update(@PathVariable("id") int id,
                                            @RequestBody Mesa updatedMesa) throws CustomException {
         return new ResponseEntity<>(mesaService.update(id, updatedMesa), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMesa(@PathVariable("id") int id) throws CustomException {
+    public ResponseEntity<Void> delete(@PathVariable("id") int id) throws CustomException {
         mesaService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
