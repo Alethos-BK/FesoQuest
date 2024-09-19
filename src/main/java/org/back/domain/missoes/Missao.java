@@ -1,10 +1,12 @@
 package org.back.domain.missoes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.back.domain.mesa.Mesa;
 
 import java.time.LocalDate;
 import java.util.List;
+
 
 @Entity(name = "missao")
 public class Missao {
@@ -25,6 +27,7 @@ public class Missao {
             foreignKey = @ForeignKey(name = "fk_missao_mesa_mesa")
         )
     )
+    @JsonIgnoreProperties("missoes")
     private List<Mesa> mesas;
 
     @OneToMany(mappedBy = "missao")
