@@ -5,6 +5,7 @@ import org.back.domain.repository.UsuarioRepository;
 import org.back.domain.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public class UsuarioService {
     }
 
     public Usuario create(Usuario usuario) throws CustomException {
+        BCryptPasswordEncoder bcript = new BCryptPasswordEncoder();
+        usuario.setSenha(bcript.encode(usuario.getSenha()));
         return usuarioRepository.save(usuario);
     }
 

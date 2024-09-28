@@ -27,7 +27,7 @@ public class MesaController {
         return ResponseEntity.ok(mesaService.getById(id));
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Mesa> create(@RequestBody Mesa mesa) {
         return new ResponseEntity<>(mesaService.create(mesa), HttpStatus.CREATED);
     }
