@@ -1,10 +1,20 @@
-package org.back.domain;
+package org.back.domain.missoes;
 
+import jakarta.persistence.*;
+
+@Entity(name = "resultado")
 public class Resultado {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+
+    @OneToOne
+    @JoinColumn(
+        name = "questao_id",
+        foreignKey = @ForeignKey(name = "fk_resultado_questao")
+    )
     private Questao questao;
-    private Alternativa alternativaCorreta;
+
     private String mensagem;
 
     public Resultado() {}
@@ -12,7 +22,6 @@ public class Resultado {
     public Resultado(int id, Questao questao, Alternativa alternativaCorreta, String mensagem) {
         this.id = id;
         this.questao = questao;
-        this.alternativaCorreta = alternativaCorreta;
         this.mensagem = mensagem;
     }
 
@@ -40,11 +49,4 @@ public class Resultado {
         this.mensagem = mensagem;
     }
 
-    public Alternativa getAlternativaCorreta() {
-        return alternativaCorreta;
-    }
-
-    public void setAlternativaCorreta(Alternativa alternativaCorreta) {
-        this.alternativaCorreta = alternativaCorreta;
-    }
 }
