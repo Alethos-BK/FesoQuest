@@ -25,8 +25,12 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/usuario/registrar").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/swagger-resources/**").permitAll()
+                        .requestMatchers("/webjars/**").permitAll()
                         .requestMatchers("/**").hasAuthority("ROLE_MESTRE")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 ).httpBasic(Customizer.withDefaults())
                 .userDetailsService(usuarioDetailsService);
 

@@ -15,6 +15,9 @@ public class QuestaoService {
     @Autowired
     private QuestaoRepository questaoRepository;
 
+    @Autowired
+    private IAService iaService;
+
     public List<Questao> getAll() {
         return questaoRepository.findAll();
     }
@@ -25,6 +28,7 @@ public class QuestaoService {
     }
 
     public Questao create(Questao questao) {
+        String questaoTransformada = iaService.transformarQuestao(questao.getDescricao());
         return questaoRepository.save(questao);
     }
 
