@@ -1,5 +1,7 @@
 package org.back.src.controller;
 
+import org.back.src.dto.MissaoRequestDto;
+import org.back.src.dto.MissaoResponseDto;
 import org.back.src.exception.CustomException;
 import org.back.src.entity.missoes.Missao;
 import org.back.src.service.MissaoService;
@@ -18,23 +20,23 @@ public class MissaoController {
     private MissaoService missaoService;
 
     @GetMapping
-    public List<Missao> getAll() {
+    public List<MissaoResponseDto> getAll() {
         return missaoService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Missao> getById(@PathVariable("id") int id) throws CustomException {
+    public ResponseEntity<MissaoResponseDto> getById(@PathVariable("id") int id) throws CustomException {
         return ResponseEntity.ok(missaoService.getById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Missao> create(@RequestBody Missao missao) {
+    public ResponseEntity<Missao> create(@RequestBody MissaoRequestDto missao) {
         return new ResponseEntity<>(missaoService.create(missao), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Missao> update(@PathVariable("id") int id,
-                                               @RequestBody Missao updatedMissao) throws CustomException {
+                                               @RequestBody MissaoRequestDto updatedMissao) throws CustomException {
         return ResponseEntity.ok(missaoService.update(id, updatedMissao));
     }
 

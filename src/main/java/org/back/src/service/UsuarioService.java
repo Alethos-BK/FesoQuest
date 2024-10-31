@@ -46,8 +46,8 @@ public class UsuarioService {
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Usuário não encontrado!"));
 
         Usuario usuario = MapperConvert.convert(usuarioRequestDto, Usuario.class);
-
         usuario.setId(id);
+
         return usuarioRepository.save(usuario);
     }
 

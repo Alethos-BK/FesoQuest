@@ -1,5 +1,7 @@
 package org.back.src.controller;
 
+import org.back.src.dto.QuestaoRequestDto;
+import org.back.src.dto.QuestaoResponseDto;
 import org.back.src.exception.CustomException;
 import org.back.src.entity.missoes.Questao;
 import org.back.src.service.IAService;
@@ -22,12 +24,12 @@ public class QuestaoController {
     private QuestaoService questaoService;
 
     @GetMapping
-    public List<Questao> getAll() {
+    public List<QuestaoResponseDto> getAll() {
         return questaoService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Questao> getById(@PathVariable("id") int id) throws CustomException {
+    public ResponseEntity<QuestaoResponseDto> getById(@PathVariable("id") int id) throws CustomException {
         return ResponseEntity.ok(questaoService.getById(id));
     }
 
@@ -38,13 +40,13 @@ public class QuestaoController {
     }
 
     @PostMapping
-    public ResponseEntity<Questao> create(@RequestBody Questao questao) {
+    public ResponseEntity<Questao> create(@RequestBody QuestaoRequestDto questao) throws CustomException {
         return new ResponseEntity<>(questaoService.create(questao), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Questao> update(@PathVariable("id") int id,
-                                                 @RequestBody Questao updatedQuestao) throws CustomException {
+                                                 @RequestBody QuestaoRequestDto updatedQuestao) throws CustomException {
         return ResponseEntity.ok(questaoService.update(id, updatedQuestao));
     }
 

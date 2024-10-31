@@ -1,5 +1,8 @@
 package org.back.src.controller;
 
+import org.back.src.dto.MesaRequestDto;
+import org.back.src.dto.MesaResponseDto;
+import org.back.src.dto.MissaoRequestDto;
 import org.back.src.exception.CustomException;
 import org.back.src.entity.mesa.Mesa;
 import org.back.src.service.MesaService;
@@ -18,23 +21,23 @@ public class MesaController {
     private MesaService mesaService;
 
     @GetMapping
-    public List<Mesa> getAll() {
+    public List<MesaResponseDto> getAll() {
         return mesaService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Mesa> getById(@PathVariable("id") int id) throws CustomException {
+    public ResponseEntity<MesaResponseDto> getById(@PathVariable("id") int id) throws CustomException {
         return ResponseEntity.ok(mesaService.getById(id));
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Mesa> create(@RequestBody Mesa mesa) {
+    public ResponseEntity<Mesa> create(@RequestBody MesaRequestDto mesa) throws CustomException {
         return new ResponseEntity<>(mesaService.create(mesa), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Mesa> update(@PathVariable("id") int id,
-                                           @RequestBody Mesa updatedMesa) throws CustomException {
+                                           @RequestBody MesaRequestDto updatedMesa) throws CustomException {
         return new ResponseEntity<>(mesaService.update(id, updatedMesa), HttpStatus.OK);
     }
 

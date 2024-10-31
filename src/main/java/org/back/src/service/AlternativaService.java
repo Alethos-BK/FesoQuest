@@ -1,5 +1,9 @@
 package org.back.src.service;
 
+import org.back.src.conversor.MapperConvert;
+import org.back.src.dto.AlternativaResponseDto;
+import org.back.src.dto.MesaResponseDto;
+import org.back.src.entity.mesa.Mesa;
 import org.back.src.exception.CustomException;
 import org.back.src.entity.missoes.Alternativa;
 import org.back.src.repository.AlternativaRepository;
@@ -15,8 +19,11 @@ public class AlternativaService {
     @Autowired
     private AlternativaRepository alternativaRepository;
 
-    public List<Alternativa> getAll() {
-        return alternativaRepository.findAll();
+    public List<AlternativaResponseDto> getAll() {
+        List<Alternativa> alternativas = alternativaRepository.findAll();
+
+        return alternativas.stream().map(alternativa ->
+                MapperConvert.convert(alternativa, AlternativaResponseDto.class)).toList();
     }
 
     public Alternativa getById(int id) throws CustomException {
