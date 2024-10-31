@@ -1,6 +1,5 @@
 package org.back.src.security;
 
-import org.back.src.service.UsuarioDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,21 +16,21 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Autowired
-    private UsuarioDetailsService usuarioDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/usuario/registrar").permitAll()
+                        .requestMatchers("/user/register").permitAll()
                         .requestMatchers("/v3/api-docs/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/swagger-resources/**").permitAll()
                         .requestMatchers("/webjars/**").permitAll()
                         .anyRequest().hasAuthority("ROLE_MESTRE")
                 ).httpBasic(Customizer.withDefaults())
-                .userDetailsService(usuarioDetailsService);
+                .userDetailsService(userDetailsService);
 
         return http.build();
     }
